@@ -7,7 +7,7 @@ GUI viewer for JSON log files (Windows).
 
 Can read local files and http(s) sources.
 
-HTTP(s) support BASIC authorization (`https://user:password@host/file.json`).
+supports calls using the Decisions session option - http://Host/Primary/restapi/Flow/01HEJK952EP3FV791H7SPK0Z27?sessionid={SESSIONID}&outputtype=JSON
 
 Log file format:
 * one json object per line;
