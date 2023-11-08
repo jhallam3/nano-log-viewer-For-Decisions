@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NanoLogViewer.Datatype;
 using NanoLogViewer.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -143,6 +144,7 @@ namespace NanoLogViewer.Forms
                         {
                             var size = isLoadTail ? HttpTools.getSize(uri) : null;
                             var text = HttpTools.download(uri, size != null ? (int?)Math.Max(0, size.Value - 1024*1024) : null);
+                            text = ConvertDecisionsLogsToNanoLog(text);
                             runInFormThread(() =>
                             {
                                 addItemToComboBox(cbSource, uri);
@@ -204,6 +206,38 @@ namespace NanoLogViewer.Forms
                 }
             }
 		}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contents"></param>
+        /// <returns></returns>
+        public string ConvertDecisionsLogsToNanoLog(string contents)
+        {
+            var AsDecisionsJson = JsonConvert.DeserializeObject<DecisionsDone>(contents);
+            
+            var result = AsDecisionsJson.Done.Rows.ToString();
+            //foreach (var i in AsDecisionsJson.Done.Rows)
+            //{
+            //    var msg = "";
+            //    if (!string.IsNullOrWhiteSpace(i.Message))
+            //    {
+            //        msg = i.Message.Replace("\r\n", " ");
+            //        msg = msg.Replace("{", " ");
+            //        msg = msg.Replace("}", " ");
+            //        msg = msg.Replace("[", " ");
+            //        msg = msg.Replace("]", " ");
+            //        msg = msg.Replace("\"", " ");
+            //    }
+
+
+            //    result = result + "{\"Category\": " + "\"" + i.Category + "\", \"Level\": " + "\"" + i.Level + "\", \"Timestamp\": " + "\"" + i.Timestamp + "\", \"Message\":" + "\"" + msg + "\", \"entity_id\":" + "\"" + i.entity_id + "\", \"entity_type_name\":" + "\"" + i.entity_type_name + "\"}" + "\r\n";
+
+
+
+            //}
+            return result;
+        }
 
         List<JObject> parse(string text)
         {
@@ -405,6 +439,11 @@ namespace NanoLogViewer.Forms
             freezed.Add(cb);
             cb.Items.Insert(0, item);
             freezed.Remove(cb);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

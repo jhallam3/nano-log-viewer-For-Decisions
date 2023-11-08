@@ -33,6 +33,7 @@ namespace NanoLogViewer.Forms
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.cbFilter = new System.Windows.Forms.ComboBox();
             this.openLogFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.label7 = new System.Windows.Forms.Label();
             this.btSelectSourceFile = new System.Windows.Forms.Button();
@@ -42,7 +43,6 @@ namespace NanoLogViewer.Forms
             this.wbDetails = new System.Windows.Forms.WebBrowser();
             this.cbSource = new System.Windows.Forms.ComboBox();
             this.cbTailMB = new System.Windows.Forms.CheckBox();
-            this.cbFilter = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btClearFilter = new System.Windows.Forms.Button();
             this.timerUpdateAfterFilterChange = new System.Windows.Forms.Timer(this.components);
@@ -51,6 +51,20 @@ namespace NanoLogViewer.Forms
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // cbFilter
+            // 
+            this.cbFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbFilter.FormattingEnabled = true;
+            this.cbFilter.Location = new System.Drawing.Point(55, 45);
+            this.cbFilter.Name = "cbFilter";
+            this.cbFilter.Size = new System.Drawing.Size(841, 23);
+            this.cbFilter.TabIndex = 22;
+            this.toolTip.SetToolTip(this.cbFilter, "Any text to search and filter");
+            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            this.cbFilter.TextUpdate += new System.EventHandler(this.cbFilter_TextUpdate);
             // 
             // openLogFileDialog
             // 
@@ -164,20 +178,6 @@ namespace NanoLogViewer.Forms
             this.cbTailMB.Text = "Load tail 1MB";
             this.cbTailMB.UseVisualStyleBackColor = true;
             // 
-            // cbFilter
-            // 
-            this.cbFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cbFilter.FormattingEnabled = true;
-            this.cbFilter.Location = new System.Drawing.Point(55, 45);
-            this.cbFilter.Name = "cbFilter";
-            this.cbFilter.Size = new System.Drawing.Size(841, 23);
-            this.cbFilter.TabIndex = 22;
-            this.toolTip.SetToolTip(this.cbFilter, "Any text to search and filter");
-            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
-            this.cbFilter.TextUpdate += new System.EventHandler(this.cbFilter_TextUpdate);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -221,8 +221,9 @@ namespace NanoLogViewer.Forms
             this.Controls.Add(this.btSelectSourceFile);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "NanoLogViewer";
+            this.Text = "NanoLogViewer 4 Decisions";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
